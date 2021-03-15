@@ -1,35 +1,35 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "janvee",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Janvee",
+  "description": "Hi mum, I'm on the telly!",
   "authors": [
-    "Me!"
+    "Coffee Maker"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Coffee-Maker",
+    "sources": "No"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/janvee/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleModKt::init"
+      "me.coffeemaker.janvee.JanveeKt::init"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "janvee.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.8.7",
     "fabric": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.17-alpha.21.10.a"
   },
   "suggests": {
     "flamingo": "*"

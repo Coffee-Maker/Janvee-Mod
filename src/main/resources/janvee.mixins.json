@@ -1,11 +1,13 @@
 {
   "required": true,
-  "package": "net.fabricmc.example.mixin",
+  "package": "me.coffeemaker.janvee.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
-    "ExampleMixin"
+    "ServerPlayerEntityMixin",
+    "PlayerEntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
