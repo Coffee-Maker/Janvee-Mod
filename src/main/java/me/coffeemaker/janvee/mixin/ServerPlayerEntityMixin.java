@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import me.coffeemaker.janvee.mixinimpls.ServerPlayerEntityMixinImpl;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,7 +24,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             at = @At("RETURN")
     )
     private void writeCustomDataToNbt(CompoundTag tag, CallbackInfo callbackInfo) {
-        ServerPlayerEntityMixinImpl.writeCustomDataToNbt(tag, this);
+        ServerPlayerEntityMixinImpl.writeCustomDataToNbt(tag, (ServerPlayerEntity) (Object) this);
     }
 
     @Inject(
@@ -31,6 +32,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             at = @At("RETURN")
     )
     private void readCustomDataFromNbt(CompoundTag tag, CallbackInfo callbackInfo) {
-        ServerPlayerEntityMixinImpl.readCustomDataFromNbt(tag, this);
+        ServerPlayerEntityMixinImpl.readCustomDataFromNbt(tag, (ServerPlayerEntity) (Object) this);
+    }
+
+    @Inject(
+            method = "Lnet/minecraft/server/network/ServerPlayerEntity;onSpawn(Lnet/minecraft/screen/ScreenHandler;)V",
+            at = @At("RETURN")
+    )
+    private void onSpawn(ScreenHandler screenHandler, CallbackInfo callbackInfo) {
+        ServerPlayerEntityMixinImpl.onSpawn(screenHandler, (ServerPlayerEntity) (Object) this);
     }
 }
