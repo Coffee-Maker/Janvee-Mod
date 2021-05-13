@@ -1,11 +1,10 @@
-package me.coffeemaker.janvee.mixin
+package me.coffeemaker.janvee.mixinimpls
 
 import me.coffeemaker.janvee.Janvee
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import org.spongepowered.asm.mixin.Mixin
-import org.spongepowered.asm.mixin.Shadow
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Constant
 import org.spongepowered.asm.mixin.injection.Inject
@@ -33,7 +32,6 @@ abstract class LivingEntityMixin : Entity(null, null) {
     )
     private fun getMaxHealth(callbackInfo: CallbackInfoReturnable<Float>) {
         if (this is PlayerEntity){
-            callbackInfo.returnValue = 1f
             Janvee.playerData[uuid]?.healthLvl?.toFloat()?.let {
                 callbackInfo.returnValue = it + 3f
             }

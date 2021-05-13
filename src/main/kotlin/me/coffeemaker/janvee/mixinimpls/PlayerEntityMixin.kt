@@ -1,4 +1,4 @@
-package me.coffeemaker.janvee.mixin
+package me.coffeemaker.janvee.mixinimpls
 
 import me.coffeemaker.janvee.Janvee
 import net.minecraft.entity.LivingEntity
@@ -6,9 +6,7 @@ import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.player.PlayerEntity
 import org.spongepowered.asm.mixin.Mixin
-import org.spongepowered.asm.mixin.Shadow
 import org.spongepowered.asm.mixin.injection.*
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import kotlin.math.ln
 

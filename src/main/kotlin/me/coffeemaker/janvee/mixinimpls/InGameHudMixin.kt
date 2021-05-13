@@ -1,8 +1,7 @@
-package me.coffeemaker.janvee.mixin
+package me.coffeemaker.janvee.mixinimpls
 
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.gui.hud.InGameHud
-import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
