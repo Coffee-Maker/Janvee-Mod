@@ -1,3 +1,14 @@
 {
-  "item.janvee.stone_dagger": "Stone Dagger"
+  "item.janvee.wooden_dagger": "Wooden Dagger",
+  "item.janvee.stone_dagger": "Stone Dagger",
+  "item.janvee.iron_dagger": "Iron Dagger",
+  "item.janvee.golden_dagger": "Golden Dagger",
+  "item.janvee.diamond_dagger": "Diamond Dagger",
+  "item.janvee.netherite_dagger": "Netherite Dagger",
+  "item.janvee.wooden_spear": "Wooden Spear",
+  "item.janvee.stone_spear": "Stone Spear",
+  "item.janvee.iron_spear": "Iron Spear",
+  "item.janvee.golden_spear": "Golden Spear",
+  "item.janvee.diamond_spear": "Diamond Spear",
+  "item.janvee.netherite_spear": "Netherite Spear"
 }

@@ -3,7 +3,10 @@
   "package": "me.coffeemaker.janvee.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ClientPlayerInteractionManagerMixin"
   ],
   "client": [
   ],

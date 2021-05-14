@@ -31,12 +31,10 @@ class ServerPlayerEntityMixinImpl {
                 newData
             }
 
-            for (property in PlayerData::class.memberProperties.filter { it.visibility == KVisibility.PUBLIC }) {
-                when (val value = property.get(data)) {
-                    is Int -> janveeTag.putInt(property.name, value)
-                    is MutableMap<*, *> -> continue
-                    is ServerPlayerEntity -> continue
-                    else -> throw UnsupportedOperationException("Unsupported type: ${property.returnType}")
+            for ((property, value) in data.values) {
+                when (value) {
+                    is Int -> janveeTag.putInt(property.removePrefix("_"), value)
+                    else -> throw UnsupportedOperationException("Unsupported type")
                 }
             }
 
@@ -45,17 +43,17 @@ class ServerPlayerEntityMixinImpl {
 
         @JvmStatic
         fun readCustomDataFromNbt(tag: CompoundTag, entity: ServerPlayerEntity) {
-            // Try to get the Janvee tag, if the data has not yet been initialised for this player, create it
-            val janveeTag = tag.getCompound("Janvee") ?: CompoundTag()
+            ensurePlayerData(entity)
 
-            val data = Janvee.playerData[entity.uuid] ?: PlayerData(entity).apply { Janvee.playerData[entity.uuid] = this }
+            // Try to get the Janvee tag, if the data has not yet been initialised for this player, run away
+            val janveeTag = tag.getCompound("Janvee") ?: return
 
-            for (property in PlayerData::class.memberProperties.filter { it.visibility == KVisibility.PUBLIC }) {
-                data.values[property.name] = when (val value = property.get(data)) {
-                    is Int -> value
-                    is MutableMap<*, *> -> continue
-                    is ServerPlayerEntity -> continue
-                    else -> throw UnsupportedOperationException("Unsupported type: ${property.returnType}")
+            val data = Janvee.playerData[entity.uuid]!!
+
+            for ((key, value) in data.values) {
+                data.values[key] = when (value) {
+                    is Int -> janveeTag.getInt(key.removePrefix("_"))
+                    else -> throw UnsupportedOperationException("Unsupported type")
                 }
             }
 
@@ -64,9 +62,15 @@ class ServerPlayerEntityMixinImpl {
 
         @JvmStatic
         fun onSpawn(screenHandler: ScreenHandler, entity: ServerPlayerEntity) {
-            println("WE HARE HERER")
-            Janvee.playerData[entity.uuid]?.player = entity;
-            Janvee.playerData[entity.uuid]?.healthLvl?.let { Janvee.playerData[entity.uuid]?.healthLvl = it }
+            ensurePlayerData(entity)
+        }
+
+        private fun ensurePlayerData(player: ServerPlayerEntity){
+            Janvee.playerData.putIfAbsent(player.uuid, PlayerData(player))
+            Janvee.playerData[player.uuid]!!.apply {
+                this.player = player
+                this.healthLvl = this.healthLvl
+            }
         }
     }
 }
