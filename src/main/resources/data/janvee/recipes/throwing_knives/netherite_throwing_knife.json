@@ -1,12 +1,14 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "janvee:diamond_dagger"
+    "item": "janvee:diamond_throwing_knife",
+    "count": 8
   },
   "addition": {
     "item": "minecraft:netherite_ingot"
   },
   "result": {
-    "item": "janvee:netherite_dagger"
+    "item": "janvee:netherite_throwing_knife",
+    "count": 4
   }
 }

@@ -1,35 +1,20 @@
 package me.coffeemaker.janvee.items
 
+import me.coffeemaker.janvee.items.interfaces.IMeleeWeapon
 import me.coffeemaker.janvee.items.interfaces.IModifyAttackRange
-import me.coffeemaker.janvee.items.interfaces.ITierTool
+import me.coffeemaker.janvee.items.interfaces.ITierItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.SwordItem
 import net.minecraft.item.ToolMaterial
-import net.minecraft.item.ToolMaterials
 
-class DaggerItem(toolMaterial: ToolMaterial, attackDamage: Int) :
-    SwordItem(toolMaterial, attackDamage, 0f, FabricItemSettings().group(ItemGroup.COMBAT)), IModifyAttackRange{
+class DaggerItem(toolMaterial: ToolMaterial) : SwordItem(toolMaterial, 1, 0f, FabricItemSettings().group(ItemGroup.COMBAT)), IModifyAttackRange, IMeleeWeapon {
+    companion object : ITierItem<DaggerItem> {
+        override val itemName = "dagger"
+        override val variants = mutableMapOf<ToolMaterial, DaggerItem>()
 
-    companion object : ITierTool<DaggerItem> {
-        private val damage = mutableMapOf<ToolMaterial, Int>(
-            ToolMaterials.WOOD to -1,
-            ToolMaterials.STONE to 0,
-            ToolMaterials.IRON to 1,
-            ToolMaterials.GOLD to 0,
-            ToolMaterials.DIAMOND to 2,
-            ToolMaterials.NETHERITE to 3,
-        )
-
-        override val toolName: String
-            get() = "dagger"
-
-        override val tools: MutableMap<ToolMaterial, DaggerItem>
-            get() = mutableMapOf()
-
-        override fun getByMaterial(material: ToolMaterial): DaggerItem = DaggerItem(material, damage[material]!!)
+        override fun getByMaterial(material: ToolMaterial): DaggerItem = DaggerItem(material)
     }
 
-    override val range: Float
-        get() = 3f
+    override val range = 3.5f
 }

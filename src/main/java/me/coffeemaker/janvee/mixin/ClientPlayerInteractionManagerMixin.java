@@ -12,10 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public abstract class ClientPlayerInteractionManagerMixin {
-
-    @Shadow
-    @Final
-    private MinecraftClient client;
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(
             method = "getReachDistance()F",
@@ -24,7 +21,9 @@ public abstract class ClientPlayerInteractionManagerMixin {
     )
     public void getReachDistance(CallbackInfoReturnable<Float> callbackInfo) {
         Float distance = ClientPlayerInteractionManagerMixinImpl.getReachDistance(client);
-        if(distance != null)
+
+        if(distance != null) {
             callbackInfo.setReturnValue(distance);
+        }
     }
 }

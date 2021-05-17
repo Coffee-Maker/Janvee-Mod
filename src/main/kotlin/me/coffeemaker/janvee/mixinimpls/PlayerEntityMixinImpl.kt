@@ -1,10 +1,14 @@
 package me.coffeemaker.janvee.mixinimpls
 
 import me.coffeemaker.janvee.Janvee
+import me.coffeemaker.janvee.items.interfaces.IMeleeWeapon
+import me.coffeemaker.janvee.items.interfaces.IModifyKnockback
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttribute
 import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.item.SwordItem
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.*
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
@@ -12,7 +16,6 @@ import java.lang.NullPointerException
 import kotlin.math.ln
 
 abstract class PlayerEntityMixinImpl : LivingEntity(null, null) {
-
     companion object {
         @JvmStatic
         fun getMovementSpeed(player: PlayerEntity): Float = Janvee.playerData[player.uuid]?.agilityLvl?.let {
@@ -25,5 +28,11 @@ abstract class PlayerEntityMixinImpl : LivingEntity(null, null) {
             Janvee.playerData[player.uuid]?.agilityLvl?.let {
                 0.015f + (0.01f * ln(it.toFloat() + 1))
             } ?: oldValue
+
+        @JvmStatic
+        fun getPlayerKnockback(baseKnockback: Float, inventory: PlayerInventory): Float = (inventory.mainHandStack.item as? IModifyKnockback)?.knockback ?: baseKnockback
+
+        @JvmStatic
+        fun fixSwordItemCheck(reference: Any): Boolean = reference is SwordItem && reference !is IMeleeWeapon
     }
 }

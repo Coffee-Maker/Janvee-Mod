@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "me.coffeemaker.janvee.JanveeKt::init"
+    ],
+    "client": [
+      "me.coffeemaker.janvee.JanveeKt::initClient"
     ]
   },
   "mixins": [
